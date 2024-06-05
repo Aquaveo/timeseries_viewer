@@ -600,6 +600,7 @@ def read_error_file(xml_file):
 
 
 def unzip_waterml(request, res_id, src):
+    
     file_number = 0
     temp_dir = get_workspace()
     file_type = None
@@ -704,6 +705,7 @@ def unzip_waterml(request, res_id, src):
         file_temp.write(file_data)
         file_temp.close()
     elif src == 'cuahsi':
+       
         # get the URL of the remote zipped WaterML resource
         file_type = 'waterml'
         app_host =request.META['HTTP_HOST']

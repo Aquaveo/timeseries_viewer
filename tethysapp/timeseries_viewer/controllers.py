@@ -52,7 +52,7 @@ def home(request):
 
 @csrf_exempt
 @never_cache
-@controller(name='chart_data', app_workspace=True)
+@controller(url='chart_data/{res_id}/{src}')
 def chart_data(request, res_id, src):
     """
     Get data for each site

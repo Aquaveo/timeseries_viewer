@@ -391,6 +391,7 @@ function addingseries(unit_off) {
         var base_url = current_url.substring(0, index);
         var csrf_token = getCookie('csrftoken');
         var data_url = base_url + 'timeseries-viewer/chart_data/' + res_id[id] + '/' + src + '/';
+
         $.ajax({
             type:"POST",
             headers:{'X-CSRFToken':csrf_token},
