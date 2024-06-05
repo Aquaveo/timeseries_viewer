@@ -1,16 +1,18 @@
 import os
 import sys
-from setuptools import setup, find_packages
-from tethys_apps.app_installation import custom_develop_command, custom_install_command
+from setuptools import setup, find_packages, find_namespace_packages
+from tethys_apps.app_installation import find_all_resource_files
+from tethys_apps.base.app_base import TethysAppBase
 
 ### Apps Definition ###
 app_package = 'timeseries_viewer'
-release_package = 'tethysapp-' + app_package
-app_class = 'timeseries_viewer.app:TimeSeriesViewer'
-app_package_dir = os.path.join(os.path.dirname(os.path.abspath(__file__)), 'tethysapp', app_package)
+release_package = f'{TethysAppBase.package_namespace}-{app_package}'
 
 ### Python Dependencies ###
-dependencies = ['lxml', 'hs_restclient','netcdf4','simplejson']
+dependencies = []
+
+# -- Get Resource File -- #
+resource_files = find_all_resource_files(app_package, TethysAppBase.package_namespace)
 
 setup(
     name=release_package,
@@ -18,17 +20,13 @@ setup(
     description='Displays time series data and basic statistics',
     long_description='',
     keywords='',
-    author='Matthew Bayles',
+    author='Matthew Bayles', 
     author_email='mmbayles@gmail.com',
     url='',
     license='',
-    packages=find_packages(exclude=['ez_setup', 'examples', 'tests']),
-    namespace_packages=['tethysapp', 'tethysapp.' + app_package],
+    packages=find_namespace_packages(),
+    package_data={'': resource_files},
     include_package_data=True,
     zip_safe=False,
     install_requires=dependencies,
-    cmdclass={
-        'install': custom_install_command(app_package, app_package_dir, dependencies),
-        'develop': custom_develop_command(app_package, app_package_dir, dependencies)
-    }
 )

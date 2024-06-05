@@ -161,7 +161,7 @@ $(document).ready(function (callback) {
             //console.log({"data": "quality"})
             var table = $('#data_table').DataTable()
             table.$('td').tooltip({
-                selector: '[data-toggle="tooltip"]',
+                selector: '[data-bs-toggle="tooltip"]',
                 container: 'body',
                 "delay": 0,
                 "track": true,
@@ -276,7 +276,7 @@ $(document).ready(function (callback) {
             //console.log({"data": "quality"})
             var table = $('#hs_resource_table').DataTable();
             table.$('td').tooltip({
-                selector: '[data-toggle="tooltip"]',
+                selector: '[data-bs-toggle="tooltip"]',
                 container: 'body',
                 "delay": 0,
                 "track": true,
@@ -1253,7 +1253,7 @@ function loadMap (graph_data) {
         e.preventDefault(); // cancel the link behaviour
         var selText = $(this).text();
         $("#dropdownMenu1").text("")
-        $("#dropdownMenu1").append(selText+'<span class="caret"></span>');
+        $("#dropdownMenu1").append(selText);
     });
 
     var icon_features = []

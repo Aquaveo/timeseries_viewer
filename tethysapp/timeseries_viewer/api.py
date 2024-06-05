@@ -1,7 +1,9 @@
 from django.shortcuts import render
 from django.http import JsonResponse
 
+from tethys_sdk.routing import controller
 
+@controller(name='api')
 def home(request):
     """
     Controller for the app home page.
@@ -9,7 +11,7 @@ def home(request):
     context = {}
     return render(request, 'timeseries_viewer/api_home.html', context)
 
-
+@controller(name='api_list_apps_help')
 def list_apps_help(request):
     """
     Controller for the list_apps_help page.
@@ -17,7 +19,7 @@ def list_apps_help(request):
     context = {}
     return render(request, 'timeseries_viewer/api_list_apps.html', context)
 
-
+@controller(name='api_list_apps')
 def list_apps(request):
     """
     Controller for the list_apps page.
