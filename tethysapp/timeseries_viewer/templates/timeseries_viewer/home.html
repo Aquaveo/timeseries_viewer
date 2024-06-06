@@ -13,7 +13,7 @@ CUAHSI Time Series Viewer
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
-                <button type="button" class="btn-close" data-bs-dismiss="modal">&times;</button>
+                <button type="button" class="btn-close" id="close-help-modal-button" data-bs-dismiss="modal"></button>
                 <h4 class="modal-title">Welcome to the CUAHSI Data Series Viewer!</h4>
             </div>
             <div class="modal-body">
@@ -36,7 +36,9 @@ CUAHSI Time Series Viewer
             </div>
             <div class="modal-footer">
                 <div id="byu-logo-container">
-                    <img src="{% static 'timeseries_viewer/images/byu-medallion.png' %}"/><span><i>Developed at the BYU Hydroinformatics Lab</i></span>
+                    <img src="{% static 'timeseries_viewer/images/byu-medallion.png' %}"/>
+                    <span><i id="byu-label">Developed at the BYU Hydroinformatics Lab</i></span>
+                    
                 </div>
                 <a href="https://github.com/CUAHSI/timeseries_viewer" type="button" class="btn btn-outline-secondary" target="_blank" >Source Code</a>
                 <button type="button" class="btn btn-outline-secondary" id="close-popup" data-bs-dismiss="modal" >Close</button>
