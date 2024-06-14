@@ -23,7 +23,7 @@ from tethys_sdk.routing import controller
 
 
 # helper controller for fetching the WaterML file
-@controller(name='temp_waterml', app_workspace=True)
+@controller(name='temp_waterml', url='temp_waterml/{id}' app_workspace=True)
 def temp_waterml(request, id):
     # base_path = utilities.get_workspace() + "/id"
     base_path = utilities.get_workspace()
@@ -32,7 +32,7 @@ def temp_waterml(request, id):
                             content_type='application/xml')
     return response
 
-@controller(name='home')
+@controller(name='home', url='home')
 def home(request):
     message = request.GET.getlist('WofUri')
     print("!!!!!!!!!!!!!1")
@@ -82,7 +82,7 @@ def chart_data(request, res_id, src):
     print("done with python")
     return JsonResponse(file_meta)
 
-@controller(name='get_hydroshare_res')
+@controller(name='get_hydroshare_res', url='get_hydroshare_res')
 def get_hydroshare_res(request):
     hs_list = []
     print("getting hydroshare list")
@@ -134,7 +134,7 @@ def get_hydroshare_res(request):
 # seperate handler for request originating from hydroshare.org
 @csrf_exempt
 @login_required()
-@controller(name='hydroshare')
+@controller(name='hydroshare', ur='hydroshare')
 def hydroshare(request):
     """Home controller if page is launched from HydroShare"""
     utilities.view_counter(request)
@@ -142,7 +142,7 @@ def hydroshare(request):
     context = {}
     return render(request, 'timeseries_viewer/home.html', context)
 
-@controller(name='view_counter')
+@controller(name='view_counter', url='view_counter')
 def view_counter(request):
     temp_dir = utilities.get_workspace()
     file_path = temp_dir + '/timeseries_viewer_view_counter.txt'
@@ -157,7 +157,7 @@ def view_counter(request):
 
 # @user_passes_test(lambda u: u.is_superuser)
 @staff_member_required
-@controller(name='error_report')
+@controller(name='error_report', url='error_report')
 def error_report(request):
     content = None
     e = None
