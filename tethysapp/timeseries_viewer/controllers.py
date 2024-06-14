@@ -23,7 +23,7 @@ from tethys_sdk.routing import controller
 
 
 # helper controller for fetching the WaterML file
-@controller(name='temp_waterml', url='temp_waterml/{id}' app_workspace=True)
+@controller(name='temp_waterml', url='temp_waterml/{id}', app_workspace=True)
 def temp_waterml(request, id):
     # base_path = utilities.get_workspace() + "/id"
     base_path = utilities.get_workspace()
