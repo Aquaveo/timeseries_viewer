@@ -75,7 +75,6 @@ def chart_data(request, res_id, src):
     This site data is formatted differently then the main site data.
 
     """
-    breakpoint()
     file_meta = utilities.unzip_waterml(request, res_id, src)
 
     print("done with python")
@@ -136,7 +135,6 @@ def get_hydroshare_res(request):
 @controller(name='hydroshare', ur='hydroshare')
 def hydroshare(request):
     """Home controller if page is launched from HydroShare"""
-    breakpoint()
     utilities.view_counter(request)
 
     context = {}
