@@ -600,7 +600,6 @@ def read_error_file(xml_file):
 
 
 def unzip_waterml(request, res_id, src):
-    
     file_number = 0
     temp_dir = get_workspace()
     file_type = None
