@@ -39,6 +39,9 @@ def list_apps(request):
     elif 'apps.hydroshare.org' in app_host:
         base_url = 'http://apps.hydroshare.org/'
         production = True
+    elif 'cloudapp.azure.com' in app_host:
+        base_url = 'https://tethys4.eastus.cloudapp.azure.com/'
+        production = True
     else:
         base_url = 'http://127.0.0.1:8000/'
         production = False

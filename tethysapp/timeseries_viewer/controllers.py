@@ -21,7 +21,6 @@ except:
 
 from tethys_sdk.routing import controller
 
-
 # helper controller for fetching the WaterML file
 @controller(name='temp_waterml', url='temp_waterml/{id}', app_workspace=True)
 def temp_waterml(request, id):
@@ -34,6 +33,7 @@ def temp_waterml(request, id):
 
 @controller(name='home', url='home')
 def home(request):
+    breakpoint()
     message = request.GET.getlist('WofUri')
     print("!!!!!!!!!!!!!1")
     print(message)
