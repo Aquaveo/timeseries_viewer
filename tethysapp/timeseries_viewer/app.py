@@ -8,7 +8,7 @@ class TimeSeriesViewer(TethysAppBase):
 
        name = 'Time Series Viewer'
        index = 'home'
-       icon = 'timeseries_viewer/images/viewer_icon2.png'
+       icon = 'timeseries_viewer/images/cuahsi_logo_small.png'
        package = 'timeseries_viewer'
        root_url = 'timeseries-viewer'
        color = '#ffff4d'
