@@ -31,10 +31,10 @@ def temp_waterml(request, id):
                             content_type='application/xml')
     return response
 
+@login_required()
 @controller(name='home', url='home')
 def home(request):
     message = request.GET.getlist('WofUri')
-    print("!!!!!!!!!!!!!1")
     print(message)
     """Home controller if page is launched from HydroShare"""
     # utilities.view_counter(request)
