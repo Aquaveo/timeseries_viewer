@@ -1495,6 +1495,7 @@ def getOAuthHS(request):
     client_id = getattr(settings, "SOCIAL_AUTH_HYDROSHARE_KEY", None)
     client_secret = getattr(settings, "SOCIAL_AUTH_HYDROSHARE_SECRET", None)
     # this line will throw out from django.core.exceptions.ObjectDoesNotExist if current user is not signed in via HydroShare OAuth
+    breakpoint()
     token = request.user.social_auth.get(provider='hydroshare').extra_data[
         'token_dict']
     hs_hostname = "{0}.hydroshare.org".format(hs_instance_name)

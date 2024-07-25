@@ -3,10 +3,14 @@
 # Created by Matthew Bayles, 2016
 from django.http import JsonResponse
 from django.http import HttpResponse
-from django.shortcuts import render
+from django.urls import reverse
+from django.shortcuts import render, redirect
+from tethys_portal.views.accounts import login_view
+from django.http import HttpResponseRedirect
 from django.contrib.auth.decorators import login_required, user_passes_test
 from django.contrib.admin.views.decorators import staff_member_required
 import os
+import re
 from . import utilities
 from django.views.decorators.csrf import csrf_exempt
 from django.views.decorators.cache import never_cache
@@ -50,9 +54,9 @@ def home(request):
     context = {}
     return render(request, 'timeseries_viewer/home.html', context)
 
+@login_required()
 @csrf_exempt
 @never_cache
-@login_required()
 @controller(url='chart_data/{res_id}/{src}')
 def chart_data(request, res_id, src):
     """
@@ -77,11 +81,21 @@ def chart_data(request, res_id, src):
     This site data is formatted differently then the main site data.
 
     """
-    file_meta = utilities.unzip_waterml(request, res_id, src)
+    try:
+        file_meta = utilities.unzip_waterml(request, res_id, src)
 
-    print("done with python")
-    return JsonResponse(file_meta)
-
+        print("done with python")
+        return JsonResponse(file_meta)
+    
+    except Exception as e:
+        match = re.search(r"Exception\('(.*)'\)", str(e))
+        if match:
+            error_message = match.group(1)
+        else:
+            error_message = str(e)
+        
+        return JsonResponse({"error": error_message})
+    
 @login_required()
 @controller(name='get_hydroshare_res', url='get_hydroshare_res')
 def get_hydroshare_res(request):
@@ -90,7 +104,11 @@ def get_hydroshare_res(request):
     if use_hs_client_helper:
         hs = get_oauth_hs(request)
     else:
-        hs = utilities.getOAuthHS(request)
+        try:
+            hs = utilities.getOAuthHS(request)
+        except Exception as e:
+            return JsonResponse({"error": str(e)})
+        
     # resource_types = ['CompositeResource','NetcdfResource','TimeSeriesResource']
     resource_types = ['TimeSeriesResource']
     # resource_types = ['CompositeResource']

@@ -402,7 +402,7 @@ function addingseries(unit_off) {
                 var dseries =[]
                 console.log(json)
                 error = json.error
-                if (error != ''){show_error(error)}
+                if (error != ''){show_error("Error: " + error)}
                 else {
                     var chart = $("#chartContainer").CanvasJSChart()
                     json_data = json.data
@@ -434,7 +434,8 @@ function addingseries(unit_off) {
                 console.log(xhr);
                 console.log(status);
                 console.log(error);
-                show_error("Error loading time series from " + res_id);
+                show_error("Error loading time series from " + res_id + "\nError: " + json.error);
+                
             }
         });
     }
@@ -1395,7 +1396,7 @@ function get_list_hs_res(){
                 error = json.error
                 //console.log(json.error)
                 if (error != '') {
-                    show_error(error)
+                    show_error("Error: " + error)
                 }
                 else {
 
@@ -1467,7 +1468,7 @@ function get_hs_res(){
                 len = json_data.length
                 nwm_data = json.gridded_data
                 var res_id_counter = 0
-                if (error != ''){show_error(error)}
+                if (error != ''){show_error("Error: " + error)}
                 else {
                     end_of_resources = end_of_resources + len-1;
                     console.log(json_data[series])
