@@ -36,7 +36,7 @@ def temp_waterml(request, id):
                             content_type='application/xml')
     return response
 
-@login_required()
+# @login_required()
 @controller(name='home', url='home')
 def home(request):
     message = request.GET.getlist('WofUri')
