@@ -101,7 +101,13 @@ def chart_data(request, res_id, src):
 def get_hydroshare_res(request):
     hs_list = []
     print("getting hydroshare list")
-    if use_hs_client_helper:
+    logged_in_through_hydroshare = False
+    try:
+        loggedin_through_hydroshare = request.user.social_auth.filter(provider='hydroshare').exists()
+    except:
+        pass
+
+    if use_hs_client_helper and logged_in_through_hydroshare:
         hs = get_oauth_hs(request)
     else:
         try:

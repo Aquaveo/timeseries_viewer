@@ -51,7 +51,7 @@ def list_apps(request):
     # Data Series Viewer App
     app1 = {'name': 'Time Series Viewer',
             # 'url': 'https://appsdev.hydroshare.org/apps/timeseries-viewer',
-            'url': base_url + 'apps/timeseries-viewer',
+            'url': base_url + 'apps/timeseries-viewer/',
             'description': 'View graph and descriptive statistics for selected time series',
             'min_series': 1,
             'max_series': 5,
