@@ -51,14 +51,14 @@ def list_apps(request):
     # Data Series Viewer App
     app1 = {'name': 'Time Series Viewer',
             # 'url': 'https://appsdev.hydroshare.org/apps/timeseries-viewer',
-            'url': base_url + 'apps/timeseries-viewer/',
+            'url': base_url + 'apps/timeseries-viewer',
             'description': 'View graph and descriptive statistics for selected time series',
             'min_series': 1,
             'max_series': 5,
             'icon': base_url + 'static/timeseries_viewer/images/viewer_icon2.gif'}
     # HydroShare Resource Creator App
     app2 = {'name': 'Export to HydroShare',
-            'url': base_url + 'apps/hydroshare-resource-creator/',
+            'url': base_url + 'apps/hydroshare-resource-creator',
             'description': 'Creates a HydroShare resource from selected time series',
             'min_series': 1,
             'max_series': 10,
@@ -66,7 +66,7 @@ def list_apps(request):
             }
     # Recession Analyzer App
     app3 = {'name': 'Recession Analyzer',
-            'url': base_url + 'apps/recession-analyzer/',
+            'url': base_url + 'apps/recession-analyzer',
             'description': 'Creates a HydroShare resource from selected time series',
             'min_series': 1,
             'max_series': 10,
@@ -74,7 +74,7 @@ def list_apps(request):
             }
     # Time Series Manager App
     app4 = {'name': 'Time Series Manager',
-            'url': base_url + 'apps/hydroshare-timeseries-manager/',
+            'url': base_url + 'apps/hydroshare-timeseries-manager',
             'description': 'Import and edit HydroShare timeseries data',
             'min_series': 1,
             'max_series': 100,
