@@ -37,7 +37,7 @@ def list_apps(request):
         base_url = 'https://hs-apps-dev.hydroshare.org/'
         production = False
     elif 'apps.hydroshare.org' in app_host:
-        base_url = 'http://apps.hydroshare.org/'
+        base_url = 'https://apps.hydroshare.org/'
         production = True
     elif 'cloudapp.azure.com' in app_host:
         base_url = 'https://tethys4.eastus.cloudapp.azure.com/'
@@ -46,7 +46,7 @@ def list_apps(request):
         base_url = 'https://tethys4.eastus.cloudapp.azure.com/'
         production = True
     else:
-        base_url = 'http://127.0.0.1:8000/'
+        base_url = 'https://127.0.0.1:8000/'
         production = False
     # Data Series Viewer App
     app1 = {'name': 'Time Series Viewer',
