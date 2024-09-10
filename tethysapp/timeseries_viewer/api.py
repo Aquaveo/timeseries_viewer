@@ -58,7 +58,7 @@ def list_apps(request):
             'icon': base_url + 'static/timeseries_viewer/images/viewer_icon2.gif'}
     # HydroShare Resource Creator App
     app2 = {'name': 'Export to HydroShare',
-            'url': base_url + 'apps/hydroshare-resource-creator',
+            'url': base_url + 'apps/hydroshare-resource-creator/',
             'description': 'Creates a HydroShare resource from selected time series',
             'min_series': 1,
             'max_series': 10,
