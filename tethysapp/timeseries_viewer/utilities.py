@@ -616,7 +616,7 @@ def unzip_waterml(request, res_id, src):
 
         logged_in_through_hydroshare = False
         try:
-            loggedin_through_hydroshare = request.user.social_auth.filter(provider='hydroshare').exists()
+            logged_in_through_hydroshare = request.user.social_auth.filter(provider='hydroshare').exists()
         except:
             pass
 
@@ -644,7 +644,6 @@ def unzip_waterml(request, res_id, src):
                                    unzip=True)
                     status = 'done'
                 except HydroShareNotAuthorized as e:
-
                     error = 'Current user does not have permission to view this resource'
                     # error = str(e)
                     break
