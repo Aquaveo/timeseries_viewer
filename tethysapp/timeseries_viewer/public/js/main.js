@@ -1566,6 +1566,7 @@ function get_screenshot() {
         // height: 1500
     });
     // Need to clean
+    
     // canvas = html2canvas(document.getElementById('chartContainer') , {
     //     onrendered: function (canvas) {
     //         console.log(canvas)
