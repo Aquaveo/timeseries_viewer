@@ -17,7 +17,7 @@ jobs:
           password: ${{ secrets.SERVER_PASSWORD }}
           port: ${{ secrets.SERVER_PORT }}
           source: '.github/scripts/update_app.sh'
-          target: '$HOME'
+          target: '/home/${{ secrets.SERVER_USERNAME }}/'
 
       - name: Updating Application
         uses: appleboy/ssh-action@v1.0.3
