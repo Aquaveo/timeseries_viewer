@@ -5,24 +5,33 @@ LOG_FILE="/var/log/tethys/update_gha.log"
 
 # Usage message
 usage() {
-    echo "Usage: $0 <app_name> <path_to_app> <nginx_user> <path_to_static_files> <path_to_workspaces> <sudo_password or 'none'> <conda_executable_path> <app_static_files_path> [--skip-static] [--skip-workspaces] [--skip-syncstores]" | tee -a "$LOG_FILE"
+    echo "Usage: $0 <app_name> <path_to_app> <app_static_files_path> [--skip-static] [--skip-workspaces] [--skip-syncstores]" | tee -a "$LOG_FILE"
     exit 1
 }
 
 # Check for the minimum number of arguments
-if [ "$#" -lt 8 ]; then
+if [ "$#" -lt 3 ]; then
     usage
 fi
 
 # Assign required arguments to variables
 APP_NAME=$1
 APP_PATH=$2
-NGINX_USER=$3
-STATIC_FILES_PATH=$4
-WORKSPACES_PATH=$5
-SUDO_PASSWORD=$6
-CONDA_EXECUTABLE=$7
-APP_STATIC_FILES_PATH=$8  # Path to the static files within the app for change detection
+APP_STATIC_FILES_PATH=$3  # Path to the static files within the app for change detection
+
+# Get the STATIC_FILES_PATH and WORKSPACES_PATH dynamically from tethys settings
+STATIC_FILES_PATH=$(tethys settings --get STATIC_ROOT | cut -d ":" -f 2 | tr -d ' ')
+WORKSPACES_PATH=$(tethys settings --get TETHYS_WORKSPACES_ROOT | cut -d ":" -f 2 | tr -d ' ')
+
+# Get the NGINX user from nginx.conf
+NGINX_USER=$(grep -E '^user' /etc/nginx/nginx.conf | awk '{print $2}' | sed 's/;//')
+
+# Get the Conda executable using 'which conda'
+CONDA_EXECUTABLE=$(which conda)
+if [ -z "$CONDA_EXECUTABLE" ]; then
+    echo "Conda executable not found. Ensure conda is installed and in the PATH." | tee -a "$LOG_FILE"
+    exit 1
+fi
 
 # Default values for flags (false)
 SKIP_STATIC=false
@@ -30,7 +39,7 @@ SKIP_WORKSPACES=false
 SKIP_SYNCSTORES=false
 
 # Parse optional arguments
-shift 8  # Shift past the first 8 required arguments
+shift 3  # Shift past the first 3 required arguments
 while [[ "$#" -gt 0 ]]; do
     case "$1" in
         --skip-static)
@@ -74,8 +83,8 @@ touch "$LOG_FILE"
     echo "Running git pull"
     git pull || { echo "git pull failed"; exit 1; }
 
-    # Run the Tethys install command using the provided Conda executable
-    echo "Running tethys install"
+    # Run the Tethys install command using the detected Conda executable
+    echo "Running tethys install with $CONDA_EXECUTABLE"
     "$CONDA_EXECUTABLE" run -n tethys tethys install -d -N || { echo "Tethys install failed"; exit 1; }
 
     # Sync stores for the app (if not skipped)
