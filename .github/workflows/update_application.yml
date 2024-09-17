@@ -43,7 +43,7 @@ jobs:
             chmod +x $HOME/update_app.sh
 
             # Pass arguments explicitly and log them
-            $HOME/update_app.sh \
+            $HOME/scripts/update_app.sh \
                 "$APP_NAME" \
                 "$APP_PATH" \
                 "$CONDA_EXECUTABLE" \
