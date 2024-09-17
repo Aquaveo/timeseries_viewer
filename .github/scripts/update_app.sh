@@ -4,13 +4,14 @@
 LOG_FILE="/var/log/tethys/update_gha.log"
 
 # Usage message
+# Usage message
 usage() {
-    echo "Usage: $0 <app_name> <path_to_app> <app_static_files_path> [--skip-static] [--skip-workspaces] [--skip-syncstores]" | tee -a "$LOG_FILE"
+    echo "Usage: $0 <app_name> <path_to_app> <conda_executable> <app_static_files_path> [--skip-static] [--skip-workspaces] [--skip-syncstores]" | tee -a "$LOG_FILE"
     exit 1
 }
 
 # Check for the minimum number of arguments
-if [ "$#" -lt 3 ]; then
+if [ "$#" -lt 4 ]; then
     usage
 fi
 
