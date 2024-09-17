@@ -57,6 +57,7 @@ jobs:
                 $CONDA_EXECUTABLE \
                 $APP_STATIC_FILES_PATH \
                 --skip-syncstores
+                --skip-workspaces
 
       - name: Cleanup
         uses: appleboy/ssh-action@v1.0.3
