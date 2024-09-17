@@ -4,11 +4,14 @@
 LOG_FILE="/var/log/tethys/update_gha.log"
 
 # Usage message
-# Usage message
 usage() {
     echo "Usage: $0 <app_name> <path_to_app> <conda_executable> <app_static_files_path> [--skip-static] [--skip-workspaces] [--skip-syncstores]" | tee -a "$LOG_FILE"
     exit 1
 }
+
+# Log the number of arguments and the actual arguments for debugging
+echo "Number of arguments: $#"
+echo "Arguments: $@" | tee -a "$LOG_FILE"
 
 # Check for the minimum number of arguments
 if [ "$#" -lt 4 ]; then
@@ -19,14 +22,24 @@ fi
 APP_NAME=$1
 APP_PATH=$2
 CONDA_EXECUTABLE=$3
-APP_STATIC_FILES_PATH=$4  # Path to the static files within the app for change detection
+APP_STATIC_FILES_PATH=$4
+
+echo "APP_NAME: $APP_NAME" | tee -a "$LOG_FILE"
+echo "APP_PATH: $APP_PATH" | tee -a "$LOG_FILE"
+echo "CONDA_EXECUTABLE: $CONDA_EXECUTABLE" | tee -a "$LOG_FILE"
+echo "APP_STATIC_FILES_PATH: $APP_STATIC_FILES_PATH" | tee -a "$LOG_FILE"
 
 # Get the STATIC_FILES_PATH and WORKSPACES_PATH dynamically from tethys settings
 STATIC_FILES_PATH=$($CONDA_EXECUTABLE run -n tethys tethys settings --get STATIC_ROOT | cut -d ":" -f 2 | tr -d ' ')
 WORKSPACES_PATH=$($CONDA_EXECUTABLE run -n tethys tethys settings --get TETHYS_WORKSPACES_ROOT | cut -d ":" -f 2 | tr -d ' ')
 
+echo "STATIC_FILES_PATH: $STATIC_FILES_PATH" | tee -a "$LOG_FILE"
+echo "WORKSPACES_PATH: $WORKSPACES_PATH" | tee -a "$LOG_FILE"
+
 # Get the NGINX user from nginx.conf
 NGINX_USER=$(grep -E '^user' /etc/nginx/nginx.conf | awk '{print $2}' | sed 's/;//')
+
+echo "NGINX_USER: $NGINX_USER" | tee -a "$LOG_FILE"
 
 # Default values for flags (false)
 SKIP_STATIC=false
@@ -34,7 +47,7 @@ SKIP_WORKSPACES=false
 SKIP_SYNCSTORES=false
 
 # Parse optional arguments
-shift 3  # Shift past the first 3 required arguments
+shift 4  # Shift past the first 4 required arguments
 while [[ "$#" -gt 0 ]]; do
     case "$1" in
         --skip-static)

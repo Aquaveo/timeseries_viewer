@@ -41,7 +41,7 @@ jobs:
             echo "APP_STATIC_FILES_PATH=$APP_STATIC_FILES_PATH"
             chmod +x $HOME/update_app.sh
 
-            # Pass the environment variables as positional arguments to the script
+            # Pass arguments explicitly and log them
             $HOME/update_app.sh \
                 "$APP_NAME" \
                 "$APP_PATH" \
