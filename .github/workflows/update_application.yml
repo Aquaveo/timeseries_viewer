@@ -17,7 +17,7 @@ jobs:
           password: ${{ secrets.SERVER_PASSWORD }}
           port: ${{ secrets.SERVER_PORT }}
           source: '.github/scripts/update_app.sh'
-          target: '/home/${{ secrets.SERVER_USERNAME }}/update_app.sh'
+          target: '/home/${{ secrets.SERVER_USERNAME }}'
 
       - name: Executing remote SSH commands
         uses: appleboy/ssh-action@v1.0.3
