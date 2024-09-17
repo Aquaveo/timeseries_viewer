@@ -48,7 +48,7 @@ touch "$LOG_FILE"
 
     # Sync stores for the app
     echo "Syncing stores for $APP_NAME"
-    if ! /home/$USER/miniconda3/envs/tethys/bin/tethys syncstores "$APP_NAME"; then
+    if ! conda run -n tethys tethys syncstores "$APP_NAME"; then
         echo "Syncstores failed for $APP_NAME, continuing with the next steps..."
     fi
 
