@@ -19,7 +19,7 @@ jobs:
           source: '.github/scripts/update_app.sh'
           target: '$HOME'
 
-      - name: Executing remote SSH commands
+      - name: Updating Application
         uses: appleboy/ssh-action@v1.0.3
         env:
           APP_NAME: 'timeseries_viewer'
@@ -42,5 +42,12 @@ jobs:
                 $STATIC_FILES_PATH \
                 $WORKSPACES_PATH
 
-            # Delete the script after execution
+      - name: Cleanup
+        uses: appleboy/ssh-action@v1.0.3
+        with:
+          host: ${{ secrets.SERVER_HOST }}
+          username: ${{ secrets.SERVER_USERNAME }}
+          password: ${{ secrets.SERVER_PASSWORD }}
+          port: ${{ secrets.SERVER_PORT }}
+          script: |
             rm $HOME/update_app.sh
