@@ -35,9 +35,14 @@ echo "APP_PATH: $APP_PATH" | tee -a "$LOG_FILE"
 echo "CONDA_EXECUTABLE: $CONDA_EXECUTABLE" | tee -a "$LOG_FILE"
 echo "APP_STATIC_FILES_PATH: $APP_STATIC_FILES_PATH" | tee -a "$LOG_FILE"
 
-# Get the STATIC_FILES_PATH and WORKSPACES_PATH dynamically from tethys settings
-STATIC_FILES_PATH=$($CONDA_EXECUTABLE run -n tethys tethys settings --get STATIC_ROOT | cut -d ":" -f 2 | tr -d '[:space:][:cntrl:]')
-WORKSPACES_PATH=$($CONDA_EXECUTABLE run -n tethys tethys settings --get TETHYS_WORKSPACES_ROOT | cut -d ":" -f 2 | tr -d '[:space:][:cntrl:]')
+# Function to remove ANSI escape codes
+remove_ansi_codes() {
+    sed 's/\x1b\[[0-9;]*[a-zA-Z]//g'
+}
+
+# Get the STATIC_FILES_PATH and WORKSPACES_PATH dynamically from tethys settings, then clean up ANSI codes
+STATIC_FILES_PATH=$($CONDA_EXECUTABLE run -n tethys tethys settings --get STATIC_ROOT | cut -d ":" -f 2 | remove_ansi_codes | tr -d '[:space:][:cntrl:]')
+WORKSPACES_PATH=$($CONDA_EXECUTABLE run -n tethys tethys settings --get TETHYS_WORKSPACES_ROOT | cut -d ":" -f 2 | remove_ansi_codes | tr -d '[:space:][:cntrl:]')
 
 # Log cleaned STATIC_FILES_PATH and WORKSPACES_PATH
 echo "STATIC_FILES_PATH: $STATIC_FILES_PATH" | tee -a "$LOG_FILE"
