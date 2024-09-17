@@ -18,7 +18,7 @@ jobs:
           port: ${{ secrets.SERVER_PORT }}
           strip_components: 3
           source: '.github/scripts/update_app.sh'
-          target: '$HOME'
+          target: '/home/${{ secrets.SERVER_USERNAME }}/'
 
       - name: Updating Application
         uses: appleboy/ssh-action@v1.0.3
