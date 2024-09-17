@@ -33,7 +33,7 @@ jobs:
           username: ${{ secrets.SERVER_USERNAME }}
           password: ${{ secrets.SERVER_PASSWORD }}
           port: ${{ secrets.SERVER_PORT }}
-          envs: APP_NAME,APP_PATH,APP_STATIC_FILES_PATH, CONDA_EXECUTABLE
+          envs: APP_NAME,APP_PATH,APP_STATIC_FILES_PATH,CONDA_EXECUTABLE
           script: |
             echo "APP_NAME=$APP_NAME"
             echo "APP_PATH=$APP_PATH"
@@ -41,11 +41,12 @@ jobs:
             echo "APP_STATIC_FILES_PATH=$APP_STATIC_FILES_PATH"
             chmod +x $HOME/update_app.sh
 
+            # Pass the environment variables as positional arguments to the script
             $HOME/update_app.sh \
-                $APP_NAME \
-                $APP_PATH \
-                $CONDA_EXECUTABLE \
-                $APP_STATIC_FILES_PATH \
+                "$APP_NAME" \
+                "$APP_PATH" \
+                "$CONDA_EXECUTABLE" \
+                "$APP_STATIC_FILES_PATH" \
                 --skip-syncstores
 
       - name: Cleanup
