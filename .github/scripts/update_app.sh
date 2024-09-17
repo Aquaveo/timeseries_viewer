@@ -56,13 +56,13 @@ touch "$LOG_FILE"
     echo "Changing ownership of static files to $USER"
     run_sudo chown -R "$USER": "$STATIC_FILES_PATH" || { echo "Chown on static files failed"; exit 1; }
     echo "Running collectstatic"
-    /home/$USER/miniconda3/envs/tethys/bin/tethys manage collectstatic --noinput || { echo "Collectstatic failed"; exit 1; }
+    /home/$USER/miniconda3/envs/tethys/bin/tethys manage collectstatic --noinput
 
     # Change ownership of workspaces and run collectworkspaces
     echo "Changing ownership of workspaces to $USER"
     run_sudo chown -R "$USER": "$WORKSPACES_PATH" || { echo "Chown on workspaces failed"; exit 1; }
     echo "Running collectworkspaces"
-    /home/$USER/miniconda3/envs/tethys/bin/tethys manage collectworkspaces --noinput || { echo "Collectworkspaces failed"; exit 1; }
+    /home/$USER/miniconda3/envs/tethys/bin/tethys manage collectworkspaces --noinput
 
     # Reassign ownership back to the user
     echo "Reverting ownership of static files and workspaces back to $USER"
