@@ -33,6 +33,7 @@ jobs:
           username: ${{ secrets.SERVER_USERNAME }}
           password: ${{ secrets.SERVER_PASSWORD }}
           port: ${{ secrets.SERVER_PORT }}
+          envs: APP_NAME,APP_PATH,NGINX_USER,STATIC_FILES_PATH,WORKSPACES_PATH
           script: |
             echo "APP_NAME=$APP_NAME"
             echo "APP_PATH=$APP_PATH"
