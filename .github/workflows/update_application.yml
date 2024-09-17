@@ -24,7 +24,7 @@ jobs:
         uses: appleboy/ssh-action@v1.0.3
         env:
           APP_NAME: 'timeseries_viewer'
-          APP_PATH: '$HOME/apps/timeseries_viewer'
+          APP_PATH: '/home/${{ secrets.SERVER_USERNAME }}/apps/timeseries_viewer'
           NGINX_USER: 'www-data'
           STATIC_FILES_PATH: '/var/opt/static'
           WORKSPACES_PATH: '/var/opt/workspaces'
