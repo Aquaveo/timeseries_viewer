@@ -46,7 +46,8 @@ jobs:
                 $APP_PATH \
                 $NGINX_USER \
                 $STATIC_FILES_PATH \
-                $WORKSPACES_PATH
+                $WORKSPACES_PATH \
+                "none"
 
       - name: Cleanup
         uses: appleboy/ssh-action@v1.0.3
