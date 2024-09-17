@@ -27,8 +27,8 @@ jobs:
           password: ${{ secrets.SERVER_PASSWORD }}
           port: ${{ secrets.SERVER_PORT }}
           script: |
-            chmod +x /home/${{ secrets.SERVER_USERNAME }}/update_app
-            /home/${{ secrets.SERVER_USERNAME }}/update_app \
+            chmod +x /home/${{ secrets.SERVER_USERNAME }}/update_app.sh
+            /home/${{ secrets.SERVER_USERNAME }}/update_app.sh \
                 timeseries_viewer \
                 /home/${{ secrets.SERVER_USERNAME }}/apps/timeseries_viewer \
                 www-data \
