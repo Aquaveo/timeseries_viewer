@@ -10,29 +10,37 @@ jobs:
         uses: actions/checkout@v3
 
       - name: Copy script to remote server
-        uses: appleboy/scp-action@v0.1.1
+        uses: appleboy/scp-action@v0.1.7
         with:
           host: ${{ secrets.SERVER_HOST }}
           username: ${{ secrets.SERVER_USERNAME }}
           password: ${{ secrets.SERVER_PASSWORD }}
           port: ${{ secrets.SERVER_PORT }}
           source: '.github/scripts/update_app.sh'
-          target: '/home/${{ secrets.SERVER_USERNAME }}'
+          target: '$HOME'
 
       - name: Executing remote SSH commands
         uses: appleboy/ssh-action@v1.0.3
+        env:
+          APP_NAME: 'timeseries_viewer'
+          APP_PATH: '$HOME/apps/timeseries_viewer'
+          NGINX_USER: 'www-data'
+          STATIC_FILES_PATH: '/var/opt/static'
+          WORKSPACES_PATH: '/var/opt/workspaces'
         with:
           host: ${{ secrets.SERVER_HOST }}
           username: ${{ secrets.SERVER_USERNAME }}
           password: ${{ secrets.SERVER_PASSWORD }}
           port: ${{ secrets.SERVER_PORT }}
           script: |
-            chmod +x /home/${{ secrets.SERVER_USERNAME }}/update_app.sh
-            /home/${{ secrets.SERVER_USERNAME }}/update_app.sh \
-                timeseries_viewer \
-                /home/${{ secrets.SERVER_USERNAME }}/apps/timeseries_viewer \
-                www-data \
-                /var/opt/static \
-                /var/opt/workspaces/
+            chmod +x $HOME/update_app.sh
+
+            $HOME/update_app.sh \
+                $APP_NAME \
+                $APP_PATH \
+                $NGINX_USER \
+                $STATIC_FILES_PATH \
+                $WORKSPACES_PATH
+
             # Delete the script after execution
-            rm /home/${{ secrets.SERVER_USERNAME }}/update_app.sh
+            rm $HOME/update_app.sh
