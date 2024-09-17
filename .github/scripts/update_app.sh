@@ -21,7 +21,7 @@ NGINX_USER=$3
 STATIC_FILES_PATH=$4
 WORKSPACES_PATH=$5
 SUDO_PASSWORD=$6
-CONDA_EXECUTABLE=$7  # Path to the Conda executable
+CONDA_EXECUTABLE=$7
 APP_STATIC_FILES_PATH=$8  # Path to the static files within the app for change detection
 
 # Default values for flags (false)
@@ -30,8 +30,9 @@ SKIP_WORKSPACES=false
 SKIP_SYNCSTORES=false
 
 # Parse optional arguments
-for arg in "$@"; do
-    case $arg in
+shift 8  # Shift past the first 8 required arguments
+while [[ "$#" -gt 0 ]]; do
+    case "$1" in
         --skip-static)
         SKIP_STATIC=true
         ;;
@@ -42,12 +43,10 @@ for arg in "$@"; do
         SKIP_SYNCSTORES=true
         ;;
         *)
-        # Skip the first 8 positional arguments
-        if [ "$#" -gt 8 ]; then
-            usage
-        fi
+        usage
         ;;
     esac
+    shift
 done
 
 # Function to run sudo commands with or without password
