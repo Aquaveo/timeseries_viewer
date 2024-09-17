@@ -34,8 +34,12 @@ jobs:
           password: ${{ secrets.SERVER_PASSWORD }}
           port: ${{ secrets.SERVER_PORT }}
           script: |
+            echo "APP_NAME=$APP_NAME"
+            echo "APP_PATH=$APP_PATH"
+            echo "NGINX_USER=$NGINX_USER"
+            echo "STATIC_FILES_PATH=$STATIC_FILES_PATH"
+            echo "WORKSPACES_PATH=$WORKSPACES_PATH"
             chmod +x $HOME/update_app.sh
-
             $HOME/update_app.sh \
                 $APP_NAME \
                 $APP_PATH \
