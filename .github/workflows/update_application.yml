@@ -13,9 +13,10 @@ jobs:
           password: ${{ secrets.SERVER_PASSWORD }}
           port: ${{ secrets.SERVER_PORT }}
           script: |
+
             $HOME/update_apps.sh \
-                timeseries_viewer \ 
-                /home/azureuser/apps/timeseries_viewer \ 
-                www-data \ 
-                /var/opt/static \ 
+                timeseries_viewer \
+                /home/$USER/apps/timeseries_viewer \
+                www-data \
+                /var/opt/static \
                 /var/opt/workspaces/
