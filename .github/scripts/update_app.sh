@@ -44,11 +44,11 @@ touch "$LOG_FILE"
 
     # Run the Tethys install command
     echo "Running tethys install"
-    /home/$USER/miniconda3/envs/tethys/bin/tethys install -d -N || { echo "Tethys install failed"; exit 1; }
+    /home/$USER/miniconda3/bin/conda run -n tethys tethys install -d -N || { echo "Tethys install failed"; exit 1; }
 
     # Sync stores for the app
     echo "Syncing stores for $APP_NAME"
-    if ! conda run -n tethys tethys syncstores "$APP_NAME"; then
+    if !  /home/$USER/miniconda3/bin/conda run -n tethys tethys syncstores "$APP_NAME"; then
         echo "Syncstores failed for $APP_NAME, continuing with the next steps..."
     fi
 
@@ -56,13 +56,13 @@ touch "$LOG_FILE"
     echo "Changing ownership of static files to $USER"
     run_sudo chown -R "$USER": "$STATIC_FILES_PATH" || { echo "Chown on static files failed"; exit 1; }
     echo "Running collectstatic"
-    /home/$USER/miniconda3/envs/tethys/bin/tethys manage collectstatic --noinput
+    /home/$USER/miniconda3/bin/conda run -n tethys tethys manage collectstatic --noinput
 
     # Change ownership of workspaces and run collectworkspaces
     echo "Changing ownership of workspaces to $USER"
     run_sudo chown -R "$USER": "$WORKSPACES_PATH" || { echo "Chown on workspaces failed"; exit 1; }
     echo "Running collectworkspaces"
-    /home/$USER/miniconda3/envs/tethys/bin/tethys manage collectworkspaces --noinput
+    /home/$USER/miniconda3/bin/conda run -n tethys tethys manage collectworkspaces --noinput
 
     # Reassign ownership back to the user
     echo "Reverting ownership of static files and workspaces back to $USER"
