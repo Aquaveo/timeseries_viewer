@@ -17,21 +17,15 @@ fi
 # Assign required arguments to variables
 APP_NAME=$1
 APP_PATH=$2
-APP_STATIC_FILES_PATH=$3  # Path to the static files within the app for change detection
+CONDA_EXECUTABLE=$3
+APP_STATIC_FILES_PATH=$4  # Path to the static files within the app for change detection
 
 # Get the STATIC_FILES_PATH and WORKSPACES_PATH dynamically from tethys settings
-STATIC_FILES_PATH=$(tethys settings --get STATIC_ROOT | cut -d ":" -f 2 | tr -d ' ')
-WORKSPACES_PATH=$(tethys settings --get TETHYS_WORKSPACES_ROOT | cut -d ":" -f 2 | tr -d ' ')
+STATIC_FILES_PATH=$($CONDA_EXECUTABLE run -n tethys tethys settings --get STATIC_ROOT | cut -d ":" -f 2 | tr -d ' ')
+WORKSPACES_PATH=$($CONDA_EXECUTABLE run -n tethys tethys settings --get TETHYS_WORKSPACES_ROOT | cut -d ":" -f 2 | tr -d ' ')
 
 # Get the NGINX user from nginx.conf
 NGINX_USER=$(grep -E '^user' /etc/nginx/nginx.conf | awk '{print $2}' | sed 's/;//')
-
-# Get the Conda executable using 'which conda'
-CONDA_EXECUTABLE=$(which conda)
-if [ -z "$CONDA_EXECUTABLE" ]; then
-    echo "Conda executable not found. Ensure conda is installed and in the PATH." | tee -a "$LOG_FILE"
-    exit 1
-fi
 
 # Default values for flags (false)
 SKIP_STATIC=false
